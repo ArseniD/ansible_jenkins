@@ -1,0 +1,28 @@
+remote_user: vagrant
+become: yes
+
+# Tomcat installation
+tomcat_user: tomcat_as
+tomcat_group: tomcat_as_group
+
+tomcat_roles:
+ - manager-gui
+ - manager-script
+ - manager-jmx
+ - manager-status
+
+tomcat_users:
+  - name: admin
+    password: adminadmin
+    roles: manager-gui
+
+  - name: arsen
+    password: arsen
+    roles: manager-script
+
+tomcat_archive_name: "apache-tomcat-8.5.9"
+tomcat_archive_name_ext: ".tar.gz"
+tomcat_archive_url: "https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.9/bin"
+tomcat_home_path: "/opt/tomcat"
+tomcat_archive_install_path: "{{tomcat_home_path}}/{{tomcat_archive_name}}"
+tomcat_install_link: "{{tomcat_home_path}}/current"

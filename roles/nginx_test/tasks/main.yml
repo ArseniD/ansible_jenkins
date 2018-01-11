@@ -1,0 +1,42 @@
+- name: Check url 200 response
+  uri:
+   url: "http://127.0.0.1:80"
+   return_content: yes
+  register: http_verify_out
+  failed_when: http_verify_out.status != 200
+  changed_when: false
+
+- name: Check if Nginx is running
+  command: systemctl status tomcat
+  ignore_errors: yes
+  changed_when: false
+  register: service_nginx_status
+
+- name: Report status of Tomcat
+  fail:
+    msg: |
+      Service Tomcat is not running.
+      Output of `systemctl status nginx`:
+      {{ service_nginx_status.stdout }}
+      {{ service_nginx_status.stderr }}
+  when: service_nginx_status | failed
+  changed_when: false
+
+- name: Check that Nginx port is accessible from current host
+  wait_for:
+    host: 127.0.0.1
+    port: 80
+    state: started         # Port should be open
+    delay: 0               # No wait before first check (sec)
+    timeout: 2             # Stop checking after timeout (sec)
+  ignore_errors: yes
+  with_items:
+      - 443
+      - 80
+  changed_when: false
+
+- name: Check if nginx process is existing
+  shell: ps -ef | grep nginx | grep /usr/sbin/nginx | awk ' { print $2 } '
+  register: command_result
+  failed_when: command_result.stdout == ""
+  changed_when: false

@@ -1,0 +1,64 @@
+- name: Vagrant stats
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Vagrant up
+      vagrant_cli:
+        vagrant_path: /var/server/jenkins/slave/workspace/EPBYMINW2472/mntlab-ansible-day-Final/
+        state: started
+      register: vm_up
+
+    - name: dump creation output
+      debug:
+        msg: '{{ vm_up }}'
+
+    - add_host:
+         hostname: "box"
+         ansible_host: "{{ vm_up['result']['ip'] }}"
+         ansible_connection: ssh
+         ansible_ssh_port: "{{ vm_up['result']['port'] }}"
+         ansible_ssh_user: "{{ vm_up['result']['username'] }}"
+         ansible_ssh_private_key_file: "{{ vm_up['result']['ssh_key'] }}"
+      changed_when: False
+
+- name: Install roles
+  hosts: box
+  remote_user: vagrant
+  become: yes
+  become_user: root
+
+  roles:
+    - role: java
+    - role: nginx
+    - role: tomcat
+
+- name: Test roles
+  hosts: box
+  remote_user: vagrant
+  become: yes
+  become_user: root
+
+  roles:
+    - role: java_test
+    - role: nginx_test
+    - role: tomcat_test
+
+  tasks:
+    - name: Creates directory
+      become: yes
+      become_user: root
+      file:
+        path: /var/lib/tomcat/webapps
+        state: directory
+        mode: 0777
+        recurse: yes
+
+    - name: shell
+      become: yes
+      become_user: root
+      shell: |
+         echo "Build time: `date -u`" >> /var/lib/tomcat/webapps/deploy-info.txt
+         echo "Deploy User: `whoami`" >> /var/lib/tomcat/webapps/deploy-info.txt
+         echo "Deployment Job: mnt-exam" >> /var/lib/tomcat/webapps/deploy-info.txt
+         echo  >> /var/lib/tomcat/webapps/deploy-info.txt

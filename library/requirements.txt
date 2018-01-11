@@ -1,0 +1,4 @@
+python-vagrant >= 0.5.15
+Fabric >= 1.14.0
+ansible == 2.4.1
+tomcatmanager >= 0.11.0

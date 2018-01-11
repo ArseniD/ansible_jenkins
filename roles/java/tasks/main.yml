@@ -1,0 +1,93 @@
+- name: Check if Java has already been downloaded and unpacked
+  stat:
+    path: "{{ java_real_home }}"
+  register: dir
+
+- name: download Java
+  get_url:
+    url:     "{{ java_versions[java_version].java_download_url }}"
+    headers: 'Cookie:oraclelicense=accept-securebackup-cookie'
+    dest:    "{{ java_tar_file }}"
+  when: dir.stat.exists == False
+
+- name: ensure the install dir
+  file:
+    path: "{{ java_install_dir }}"
+    mode: 0755
+    owner: root
+    group: root
+    state: directory
+
+- name: check if the java_home exists
+  stat: path="{{ java_real_home }}"
+  register: java_real_home_check
+
+- name: unarchive the tarball
+  unarchive:
+    src: "{{ java_tar_file }}"
+    dest: "{{ java_install_dir }}"
+    owner: root
+    group: root
+    copy: no
+  when: java_real_home_check.stat.isdir is not defined or not java_real_home_check.stat.isdir
+
+- name: set alternatives
+  alternatives:
+    name="{{ item.exe }}"
+    link="/usr/bin/{{ item.exe }}"
+    path="{{ item.path }}/{{ item.exe }}"
+  with_items:
+    - { path: "{{ java_real_home }}/jre/bin", exe: 'java' }
+    - { path: "{{ java_real_home }}/bin", exe: 'javac' }
+    - { path: "{{ java_real_home }}/bin", exe: 'jar' }
+
+- name: Check if oracle_jdk.sh has already been created
+  stat:
+    path: '{{profile_path}}/oracle_jdk.sh'
+  register: oracle_jdk
+
+- block:
+
+  - name: Set systemwide oracle env file under /etc/profile.d/
+    set_fact: remote_file_path={{profile_path}}/oracle_jdk.sh
+
+  # Create a blank file
+  - name: Create a new file {{profile_path}}/oracle_jdk.sh
+    file: path={{remote_file_path}} state=touch
+
+  # Check remote file
+  - stat: path={{remote_file_path}}
+    register: file_path
+
+  # Copy /etc/profile.d/oracle_jdk.sh with content
+  - copy:
+      content: |
+                #!/bin/bash
+                export JDK_HOME={{ java_real_home }}
+                export JAVA_HOME={{ java_real_home }}
+                export JRE_HOME={{ java_real_home }}/jre
+                export PATH=$PATH:{{ java_real_home }}/bin:{{ java_real_home }}/jre/bin
+      dest: /etc/profile.d/oracle_jdk.sh
+
+  # Fix the executable permission
+  - name: Set executable perission
+    file: path={{profile_path}}/oracle_jdk.sh
+          owner=root
+          group=root
+          mode=0555
+          state=file
+          recurse=no
+
+  # Export the env on th fly to make system wide change
+  - name: Source the file {{profile_path}}/oracle_jdk.sh
+    action: shell source /etc/profile
+
+  when: oracle_jdk.stat.exists == False
+
+- name: clean up
+  file:
+    path: "{{ java_download_path }}/{{ item }}"
+    state: absent
+  with_items:
+    - "jdk-{{ java_version }}-linux-x64.tar.gz"
+  when: java_remove_download

@@ -1,0 +1,42 @@
+- name: Check url 200 response
+  uri:
+   url: "http://127.0.0.1:8080"
+   return_content: yes
+  register: http_verify_out
+  failed_when: http_verify_out.status != 200
+  changed_when: false
+
+- name: Check if Tomcat is running
+  command: systemctl status tomcat
+  ignore_errors: yes
+  changed_when: false
+  register: service_tomcat_status
+
+- name: Report status of Tomcat
+  fail:
+    msg: |
+      Service Tomcat is not running.
+      Output of `systemctl status tomcat`:
+      {{ service_tomcat_status.stdout }}
+      {{ service_tomcat_status.stderr }}
+  when: service_tomcat_status | failed
+  changed_when: false
+
+- name: Check that Tomcat port is accessible from current host
+  wait_for:
+    host: 127.0.0.1
+    port: 8080
+    state: started         # Port should be open
+    delay: 0               # No wait before first check (sec)
+    timeout: 2             # Stop checking after timeout (sec)
+  ignore_errors: yes
+  with_items:
+      - 443
+      - 80
+  changed_when: false
+
+- name: Check if tomcat process is existing
+  shell: ps -ef | grep tomcat | grep java | awk ' { print $2 } '
+  register: command_result
+  failed_when: command_result.stdout == ""
+  changed_when: false

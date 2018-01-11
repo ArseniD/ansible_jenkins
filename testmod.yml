@@ -1,0 +1,24 @@
+- name: test my new module
+  connection: local
+  hosts: localhost
+  
+  tasks:
+#  - name: test_1 vagrant_cli module
+#    vagrant_cli:
+#      vagrant_path: '/home/student/cm/ansible/day-4'
+#      state: 'started'
+#    register: test_1
+#  - name: dump test_1 output
+#    debug:
+#      msg: '{{ test_1 }}'
+      
+  - name: test_2 tomcat_deploy module
+    tomcat_deploy:
+      url: 'http://10.0.0.10/manager'
+      war: '/home/student/cm/ansible/day-4/hello-war/target/mnt-lab.war'
+      username: arsen
+      password: arsen
+    register: test_2
+  - name: dump test_2 output
+    debug:
+      msg: '{{ test_2 }}'

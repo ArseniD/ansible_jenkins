@@ -1,0 +1,29 @@
+- name: Vagrant create
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Vagrant up
+      vagrant_cli:
+        vagrant_path: /var/server/jenkins/slave/workspace/EPBYMINW2472/mntlab-ansible-day-Final/
+        state: started
+      register: vm_up
+
+    - name: dump creation output
+      debug:
+        msg: '{{ vm_up }}'
+
+    - add_host:
+         hostname: "box"
+         ansible_host: "{{ vm_up['result']['ip'] }}"
+         ansible_connection: ssh
+         ansible_ssh_port: "{{ vm_up['result']['port'] }}"
+         ansible_ssh_user: "{{ vm_up['result']['username'] }}"
+         ansible_ssh_private_key_file: "{{ vm_up['result']['ssh_key'] }}"
+      changed_when: False
+
+- name: Tomcat deploy
+  hosts: localhost
+  connection: local
+  roles:
+    - { role: tomcat_deploy, WAR: "{{ artefact }}" }

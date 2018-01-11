@@ -1,0 +1,86 @@
+- name: Create tomcat group
+  group:
+    name: "{{tomcat_group}}"
+    system: true
+
+- name: Create tomcat user
+  user:
+    name: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
+    shell: /bin/false
+    home: "{{tomcat_home_path}}"
+    system: true
+    createhome: true
+    move_home: true
+
+- name: Download and extract Tomcat to tomcat home directory
+  unarchive:
+    src: "{{tomcat_archive_url}}/{{tomcat_archive_name}}{{tomcat_archive_name_ext}}"
+    dest: "{{tomcat_home_path}}"
+    remote_src: true
+    group: "{{tomcat_group}}"
+    creates: "{{tomcat_archive_install_path}}"
+
+- name: Make the tomcat user the owner of the webapps, work, temp, and logs directories
+  file:
+    path: "{{tomcat_archive_install_path}}/{{item}}"
+    owner: "{{tomcat_user}}"
+    group: "{{tomcat_group}}"
+    recurse: true
+  with_items:
+    - webapps
+    - work
+    - temp
+    - logs
+
+- name: Grant Tomcat group read access to the conf directory
+  file:
+    path: "{{tomcat_archive_install_path}}/conf"
+    state: directory
+    mode: "g+r"
+    recurse: true
+
+- name: Grant Tomcat group execute access to the conf directory itself
+  file:
+    path: "{{tomcat_archive_install_path}}/conf"
+    state: directory
+    mode: "g+x"
+
+- name: Create tomcat-users.xml
+  template:
+    src: "templates/tomcat-users.xml"
+    dest: "{{tomcat_archive_install_path}}/conf/tomcat-users.xml"
+  notify: restart_tomcat
+
+- name: Create context.xml
+  template:
+    src: "templates/context.xml"
+    dest: "{{tomcat_archive_install_path}}/webapps/manager/META-INF/context.xml"
+  notify: restart_tomcat
+
+- name: Symlink Tomcat to current version
+  file:
+    src: "{{tomcat_archive_install_path}}"
+    dest: "{{tomcat_install_link}}"
+    state: link
+  notify: restart_tomcat
+
+- name: Symlink Tomcat logs to /var/log/tomcat
+  file:
+    src: "{{tomcat_install_link}}/logs"
+    dest: /var/log/tomcat
+    state: link
+  notify: restart_tomcat
+
+- name: Create systemd service script for Tomcat
+  template:
+    src: "templates/tomcat.service"
+    dest: "/etc/systemd/system/tomcat.service"
+  notify: restart_tomcat
+
+- name: Start and enable Tomcat service
+  systemd:
+    name: tomcat
+    state: started
+    enabled: true
+    daemon_reload: true

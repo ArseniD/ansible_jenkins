@@ -1,0 +1,60 @@
+profile_path: /etc/profile.d
+
+java_download_path: /usr/local/src
+java_artifact_name: "jdk-{{ java_version }}-linux-x64.tar.gz"
+java_tar_file: "{{ java_download_path }}/{{ java_artifact_name }}"
+
+java_install_dir: /usr/java
+java_real_home: "{{ java_install_dir }}/jdk{{ java_versions[java_version].java_long_version }}"
+
+java_remove_download: yes
+
+java_architecture: linux-x64
+java_version: 8u151
+
+java_versions:
+  7u79:
+    java_long_version: 1.7.0_79
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-{{ java_architecture }}.tar.gz
+  7u80:
+    java_long_version: 1.7.0_80
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-{{ java_architecture }}.tar.gz
+  8u74:
+    java_long_version: 1.8.0_74
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u74-b02/jdk-8u74-{{ java_architecture }}.tar.gz
+  8u91:
+    java_long_version: 1.8.0_91
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-{{ java_architecture }}.tar.gz
+  8u92:
+    java_long_version: 1.8.0_92
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-{{ java_architecture }}.tar.gz
+  8u101:
+    java_long_version: 1.8.0_101
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u101-b13/jdk-8u101-{{ java_architecture }}.tar.gz
+  8u102:
+    java_long_version: 1.8.0_102
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-{{ java_architecture }}.tar.gz
+  8u111:
+    java_long_version: 1.8.0_111
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-{{ java_architecture }}.tar.gz
+  8u112:
+    java_long_version: 1.8.0_112
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u112-b14/jdk-8u112-{{ java_architecture }}.tar.gz
+  8u121:
+    java_long_version: 1.8.0_121
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-{{ java_architecture }}.tar.gz
+  8u131:
+    java_long_version: 1.8.0_131
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-{{ java_architecture }}.tar.gz
+  8u141:
+    java_long_version: 1.8.0_141
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-{{ java_architecture }}.tar.gz
+  8u144:
+    java_long_version: 1.8.0_144
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-{{ java_architecture }}.tar.gz
+  8u151:
+    java_long_version: 1.8.0_151
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u151-b12/e758a0de34e24606bca991d704f6dcbf/jdk-8u151-{{ java_architecture }}.tar.gz
+  8u152:
+    java_long_version: 1.8.0_152
+    java_download_url: http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-{{ java_architecture }}.tar.gz
