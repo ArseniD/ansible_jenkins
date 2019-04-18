@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AnsibleModule	library/tomcat_deploy.py	/^from ansible.module_utils.basic import AnsibleModule$/;"	i
+AnsibleModule	library/vagrant_cli.py	/^from ansible.module_utils.basic import AnsibleModule$/;"	i
+CallbackBase	callback_plugins/pretty_print.py	/^from ansible.plugins.callback import CallbackBase$/;"	i
+CallbackModule	callback_plugins/pretty_print.py	/^class CallbackModule(CallbackBase):$/;"	c
+FIELDS	callback_plugins/pretty_print.py	/^FIELDS = ['command',$/;"	v
+FilterModule	filter_plugins/mongo_select.py	/^class FilterModule(object):$/;"	c
+HelloServlet	src/main/java/org/example/HelloServlet.java	/^public class HelloServlet extends HttpServlet {$/;"	c
+Tomcat	library/tomcat_deploy.py	/^class Tomcat(object):$/;"	c
+Vagrant	library/vagrant_cli.py	/^class Vagrant(object):$/;"	c
+__init__	callback_plugins/pretty_print.py	/^    def __init__(self):$/;"	m	class:CallbackModule
+__init__	library/tomcat_deploy.py	/^    def __init__(self, url, war, username, password):$/;"	m	class:Tomcat
+__init__	library/vagrant_cli.py	/^    def __init__(self, vagrant_path, state):$/;"	m	class:Vagrant
+__metaclass__	callback_plugins/pretty_print.py	/^__metaclass__ = type$/;"	v
+absolute_import	callback_plugins/pretty_print.py	/^from __future__ import (absolute_import, division, print_function)$/;"	i
+datetime	callback_plugins/pretty_print.py	/^import datetime$/;"	i
+deploy	library/tomcat_deploy.py	/^    def deploy(self):$/;"	m	class:Tomcat
+division	callback_plugins/pretty_print.py	/^from __future__ import (absolute_import, division, print_function)$/;"	i
+doGet	src/main/java/org/example/HelloServlet.java	/^    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException$/;"	m	class:HelloServlet
+env	library/vagrant_cli.py	/^from fabric.api import env, execute, run$/;"	i
+execute	library/vagrant_cli.py	/^from fabric.api import env, execute, run$/;"	i
+filters	filter_plugins/mongo_select.py	/^    def filters(self):$/;"	m	class:FilterModule
+get_info	library/vagrant_cli.py	/^    def get_info(self):$/;"	m	class:Vagrant
+get_mongo_src	filter_plugins/mongo_select.py	/^def get_mongo_src(args, os_family, release_num, mongo_v):$/;"	f
+get_os	library/vagrant_cli.py	/^    def get_os(self):$/;"	m	class:Vagrant
+get_ram	library/vagrant_cli.py	/^    def get_ram(self):$/;"	m	class:Vagrant
+humanize	callback_plugins/pretty_print.py	/^    def humanize(self, data):$/;"	m	class:CallbackModule
+json	callback_plugins/pretty_print.py	/^import json$/;"	i
+org.example	src/main/java/org/example/HelloServlet.java	/^package org.example;$/;"	p
+os_name	library/vagrant_cli.py	/^    def os_name(self):$/;"	m	class:Vagrant
+output	library/vagrant_cli.py	/^from fabric.state import output$/;"	i
+print_function	callback_plugins/pretty_print.py	/^from __future__ import (absolute_import, division, print_function)$/;"	i
+ram_size	library/vagrant_cli.py	/^    def ram_size(self):$/;"	m	class:Vagrant
+run	library/vagrant_cli.py	/^from fabric.api import env, execute, run$/;"	i
+subprocess	library/vagrant_cli.py	/^import subprocess$/;"	i
+switch_case	library/vagrant_cli.py	/^    def switch_case(self, state):$/;"	m	class:Vagrant
+time	callback_plugins/pretty_print.py	/^import time$/;"	i
+tm	library/tomcat_deploy.py	/^import tomcatmanager as tm$/;"	i
+v2_on_any	callback_plugins/pretty_print.py	/^    def v2_on_any(self, *args, **kwargs):$/;"	m	class:CallbackModule
+v2_on_file_diff	callback_plugins/pretty_print.py	/^    def v2_on_file_diff(self, result):$/;"	m	class:CallbackModule
+v2_playbook_item_on_failed	callback_plugins/pretty_print.py	/^    def v2_playbook_item_on_failed(self, result):$/;"	m	class:CallbackModule
+v2_playbook_item_on_ok	callback_plugins/pretty_print.py	/^    def v2_playbook_item_on_ok(self, result):$/;"	m	class:CallbackModule
+v2_playbook_item_on_skipped	callback_plugins/pretty_print.py	/^    def v2_playbook_item_on_skipped(self, result):$/;"	m	class:CallbackModule
+v2_playbook_on_import_for_host	callback_plugins/pretty_print.py	/^    def v2_playbook_on_import_for_host(self, result, imported_file):$/;"	m	class:CallbackModule
+v2_playbook_on_include	callback_plugins/pretty_print.py	/^    def v2_playbook_on_include(self, included_file):$/;"	m	class:CallbackModule
+v2_playbook_on_item_failed	callback_plugins/pretty_print.py	/^    def v2_playbook_on_item_failed(self, result):$/;"	m	class:CallbackModule
+v2_playbook_on_item_ok	callback_plugins/pretty_print.py	/^    def v2_playbook_on_item_ok(self, result):$/;"	m	class:CallbackModule
+v2_playbook_on_item_skipped	callback_plugins/pretty_print.py	/^    def v2_playbook_on_item_skipped(self, result):$/;"	m	class:CallbackModule
+v2_playbook_on_no_hosts_matched	callback_plugins/pretty_print.py	/^    def v2_playbook_on_no_hosts_matched(self):$/;"	m	class:CallbackModule
+v2_playbook_on_no_hosts_remaining	callback_plugins/pretty_print.py	/^    def v2_playbook_on_no_hosts_remaining(self):$/;"	m	class:CallbackModule
+v2_playbook_on_not_import_for_host	callback_plugins/pretty_print.py	/^    def v2_playbook_on_not_import_for_host(self, result, missing_file):$/;"	m	class:CallbackModule
+v2_playbook_on_notify	callback_plugins/pretty_print.py	/^    def v2_playbook_on_notify(self, result, handler):$/;"	m	class:CallbackModule
+v2_playbook_on_play_start	callback_plugins/pretty_print.py	/^    def v2_playbook_on_play_start(self, play):$/;"	m	class:CallbackModule
+v2_playbook_on_setup	callback_plugins/pretty_print.py	/^    def v2_playbook_on_setup(self):$/;"	m	class:CallbackModule
+v2_playbook_on_stats	callback_plugins/pretty_print.py	/^    def v2_playbook_on_stats(self, task_times):$/;"	m	class:CallbackModule
+v2_playbook_on_task_start	callback_plugins/pretty_print.py	/^    def v2_playbook_on_task_start(self, task, is_conditional):$/;"	m	class:CallbackModule
+v2_playbook_on_vars_prompt	callback_plugins/pretty_print.py	/^    def v2_playbook_on_vars_prompt(self, varname, private=True, prompt=None,$/;"	m	class:CallbackModule
+v2_runner_on_async_failed	callback_plugins/pretty_print.py	/^    def v2_runner_on_async_failed(self, result):$/;"	m	class:CallbackModule
+v2_runner_on_async_ok	callback_plugins/pretty_print.py	/^    def v2_runner_on_async_ok(self, host, result):$/;"	m	class:CallbackModule
+v2_runner_on_async_poll	callback_plugins/pretty_print.py	/^    def v2_runner_on_async_poll(self, result):$/;"	m	class:CallbackModule
+v2_runner_on_failed	callback_plugins/pretty_print.py	/^    def v2_runner_on_failed(self, result, ignore_errors=False):$/;"	m	class:CallbackModule
+v2_runner_on_no_hosts	callback_plugins/pretty_print.py	/^    def v2_runner_on_no_hosts(self, task):$/;"	m	class:CallbackModule
+v2_runner_on_ok	callback_plugins/pretty_print.py	/^    def v2_runner_on_ok(self, result):$/;"	m	class:CallbackModule
+v2_runner_on_skipped	callback_plugins/pretty_print.py	/^    def v2_runner_on_skipped(self, result):$/;"	m	class:CallbackModule
+v2_runner_on_unreachable	callback_plugins/pretty_print.py	/^    def v2_runner_on_unreachable(self, result):$/;"	m	class:CallbackModule
+vagrant	library/vagrant_cli.py	/^import vagrant$/;"	i
